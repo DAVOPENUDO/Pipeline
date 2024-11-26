@@ -1,0 +1,21 @@
+trigger:
+  branches:
+    include:
+      - main  # Ajusta esto si tu rama principal tiene otro nombre
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UseNode@2
+  inputs:
+    versionSpec: '16.x'  # Versión de Node.js que necesitas
+- script: |
+    npm install
+    npm run build
+  displayName: 'Build Application'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'www'  # Ruta del build para apps Ionic
+    ArtifactName: 'drop'
